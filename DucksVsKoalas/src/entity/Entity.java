@@ -13,4 +13,5 @@ public class Entity {
 
 	}
 	public Rectangle boundingBox;
+
 }

@@ -1,7 +1,6 @@
 package entity;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -17,7 +16,7 @@ public class Player extends Entity {
 	GamePanel gp;
 	KeyHandler keyH;
 	
-	BufferedImage up, center, down;
+	BufferedImage up, center, down, up2, center2, down2;
 	// STATS
 	
 	public int hp;
@@ -44,7 +43,7 @@ public class Player extends Entity {
 	    direction = "idle";
 	    
 	    // Set the boundingBox size to 16 * gp.spriteScale by 16 * gp.spriteScale
-	    boundingBox = new Rectangle(x, y, 16 * gp.spriteScale, 16 * gp.spriteScale);
+	    boundingBox = new Rectangle(x + (4 * gp.spriteScale), y, 12 * gp.spriteScale, 9 * gp.spriteScale);
 	}
 
 	public void getPlayerImage() {
@@ -52,8 +51,11 @@ public class Player extends Entity {
 		try {
 			
 			this.up = ImageIO.read(getClass().getResourceAsStream("/player/up.png"));
+			this.up2 = ImageIO.read(getClass().getResourceAsStream("/player/up2.png"));
 			this.center = ImageIO.read(getClass().getResourceAsStream("/player/center.png"));
+			this.center2 = ImageIO.read(getClass().getResourceAsStream("/player/center2.png"));
 			this.down = ImageIO.read(getClass().getResourceAsStream("/player/down.png"));
+			this.down2 = ImageIO.read(getClass().getResourceAsStream("/player/down2.png"));
 
 			
 		} catch(IOException e) {
@@ -74,15 +76,15 @@ public class Player extends Entity {
 			image = down;
 			break;
 		}
-		g2.drawImage(image, x, y, 16 * gp.spriteScale, 16 * gp.spriteScale, null);
+		g2.drawImage(image, x - (4*gp.spriteScale), y - (4*gp.spriteScale), 16 * gp.spriteScale, 16 * gp.spriteScale, null);
 		if (gp.debug) {
 		    // Set the text color
 		    g2.setColor(Color.green);
 		    
 		    // Set a larger font size (e.g., double the default size)
-		    Font originalFont = g2.getFont();  // Store the original font
-		    Font largerFont = originalFont.deriveFont(originalFont.getSize() * 2.0f);  // Create a larger font
-		    g2.setFont(largerFont);  // Set the new font
+//		    Font originalFont = g2.getFont();  // Store the original font
+//		    Font largerFont = originalFont.deriveFont(originalFont.getSize() * 2.0f);  // Create a larger font
+//		    g2.setFont(largerFont);  // Set the new font
 		    
 		    // Draw velocity and position info next to the square
 		    g2.drawString("VelocityX: " + velocityX, x + gp.spriteScale * 16 + 10, y + 15);
@@ -93,7 +95,7 @@ public class Player extends Entity {
 		    g2.drawRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
 		    
 		    // Reset to the original font after drawing
-		    g2.setFont(originalFont);
+//		    g2.setFont(originalFont);
 		    
 		    // Set the text color back to white
 		    g2.setColor(Color.white);
@@ -125,8 +127,8 @@ public class Player extends Entity {
 	        y = 0;              // Top boundary
 	        velocityY = 0;       // Stop upward movement
 	    }
-	    if (y > 768 - (16 * gp.spriteScale)) {
-	        y = 768  - (16 * gp.spriteScale); // Bottom boundary
+	    if (y > 768 - (9 * gp.spriteScale)) {
+	        y = 768  - (9 * gp.spriteScale); // Bottom boundary
 	        velocityY = 0;      // Stop downward movement
 	    }
 
@@ -138,6 +140,7 @@ public class Player extends Entity {
 	    } else {
 	        direction = "center";
 	    }
+	    
 
 	    // Call the superclass update method
 	    super.update();
