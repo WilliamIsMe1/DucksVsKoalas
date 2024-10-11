@@ -60,6 +60,7 @@ public class KeyHandler implements KeyListener {
 		if(code == KeyEvent.VK_F3) {
 			this.gp.debug = !this.gp.debug;
 			System.out.println(this.gp.debug ? "Debug Mode On" : "Debug Mode Off");
+			this.gp.toggleInfoWindow();
 		}
 		if(code == KeyEvent.VK_SPACE) {
 			shotPressed = false;
